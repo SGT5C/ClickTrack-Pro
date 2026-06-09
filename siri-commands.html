@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickTrack — Siri Commands</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --border: #e0e0e5;
+    --accent: #007aff;
+    --pro: #ff9500;
+    --text: #1d1d1f;
+    --secondary: #6e6e73;
+    --badge-pro-bg: #fff3e0;
+    --badge-pro-text: #c95f00;
+    --badge-free-bg: #e8f5e9;
+    --badge-free-text: #2e7d32;
+    --phrase-bg: #f0f4ff;
+    --phrase-border: #c5d5f5;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1e;
+      --card: #2c2c2e;
+      --border: #3a3a3c;
+      --text: #f5f5f7;
+      --secondary: #aeaeb2;
+      --badge-pro-bg: #3a2800;
+      --badge-pro-text: #ffb74d;
+      --badge-free-bg: #0d2e14;
+      --badge-free-text: #66bb6a;
+      --phrase-bg: #1a2340;
+      --phrase-border: #2c3f70;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px 24px 64px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  header { margin-bottom: 40px; }
+  header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  header p {
+    margin-top: 8px;
+    color: var(--secondary);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--secondary);
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 40px 0 14px;
+    letter-spacing: -0.3px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .badges {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge-pro {
+    background: var(--badge-pro-bg);
+    color: var(--badge-pro-text);
+  }
+  .badge-free {
+    background: var(--badge-free-bg);
+    color: var(--badge-free-text);
+  }
+  .badge-opens {
+    background: #e8f0fe;
+    color: #1a56db;
+  }
+  @media (prefers-color-scheme: dark) {
+    .badge-opens { background: #1a2a50; color: #79a8ff; }
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--secondary);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .params {
+    margin-top: 8px;
+  }
+  .params-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--secondary);
+    margin-bottom: 4px;
+  }
+  .param {
+    font-size: 12px;
+    color: var(--secondary);
+    padding: 2px 0;
+    display: flex;
+    gap: 6px;
+  }
+  .param::before { content: "·"; color: var(--accent); }
+  .phrases {
+    margin-top: 10px;
+  }
+  .phrase {
+    display: inline-block;
+    background: var(--phrase-bg);
+    border: 1px solid var(--phrase-border);
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 3px 8px;
+    margin: 3px 3px 0 0;
+    font-style: italic;
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ClickTrack — Siri Commands</h1>
+  <p>All available commands for Siri, the Shortcuts app, and the Action button. Italic phrases are example triggers you can say to Siri.</p>
+  <div class="legend">
+    <div class="legend-item"><span class="badge badge-free">Free</span> Available to all users</div>
+    <div class="legend-item"><span class="badge badge-pro">Pro</span> Requires ClickTrack Pro</div>
+    <div class="legend-item"><span class="badge badge-opens">Opens App</span> Launches ClickTrack to run</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ PLAYBACK ═══════════════════════════ -->
+<h2>Playback</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Tempo</div>
+      <div class="badges"><span class="badge badge-free">Free</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Sets the metronome tempo and starts playing.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">BPM — the target tempo</div>
+      <div class="param">Start Playing — whether to begin immediately (default: yes)</div>
+    </div>
+    <div class="phrases">
+      <span class="phrase">"Set tempo in ClickTrack"</span>
+      <span class="phrase">"Start the metronome in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Stop Metronome</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Stops the metronome.</div>
+    <div class="phrases">
+      <span class="phrase">"Stop ClickTrack"</span>
+      <span class="phrase">"Stop metronome in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Pause Metronome</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Pauses the metronome without resetting it.</div>
+    <div class="phrases">
+      <span class="phrase">"Pause ClickTrack"</span>
+      <span class="phrase">"Pause the metronome in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Resume Metronome</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Resumes the metronome from a paused state.</div>
+    <div class="phrases">
+      <span class="phrase">"Resume ClickTrack"</span>
+      <span class="phrase">"Resume the metronome in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Adjust Tempo</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Increases or decreases the tempo by a number of BPM. Use a negative number to slow down.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">BPM Change — positive to speed up, negative to slow down</div>
+    </div>
+    <div class="phrases">
+      <span class="phrase">"Adjust tempo in ClickTrack"</span>
+      <span class="phrase">"Change tempo in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">What's the Tempo?</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Tells you the current metronome tempo.</div>
+    <div class="phrases">
+      <span class="phrase">"What's the tempo in ClickTrack"</span>
+      <span class="phrase">"Current tempo in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Time Signature</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Sets the metronome time signature, for example 3/4 or 6/8.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Beats Per Measure</div>
+      <div class="param">Note Value (default: 4)</div>
+    </div>
+    <div class="phrases">
+      <span class="phrase">"Set time signature in ClickTrack"</span>
+      <span class="phrase">"Change time signature in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Click Tone</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Turns the audible click sound on or off.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Enabled — on or off</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Accent Beat</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Turns the accent on the first beat on or off.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Enabled — on or off</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Haptic Intensity</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Sets the vibration strength of the metronome beat.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Intensity — Off, Light, Medium, or Strong</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Subdivision</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Turns a subdivision layer on or off.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Subdivision — Eighth notes, Triplets, or Sixteenth notes</div>
+      <div class="param">Enabled — on or off (default: on)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Measure Limit</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Sets how many measures the metronome plays before stopping. Set to 0 to loop indefinitely.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Measures — number of measures, or 0 to loop forever</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ PRESETS ═══════════════════════════ -->
+<h2>Presets</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Apply Preset</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Applies a saved tempo preset and starts playing.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — one of your saved presets</div>
+    </div>
+    <div class="phrases">
+      <span class="phrase">"Play {preset} in ClickTrack"</span>
+      <span class="phrase">"Apply {preset} in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Save Current Settings as Preset</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Saves the current metronome settings as a named preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset Name — what to call the preset</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Delete Preset</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Permanently deletes a saved preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to delete</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Rename Preset</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Renames a saved preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to rename</div>
+      <div class="param">New Name — the new name</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Duplicate Preset</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Creates a copy of a saved preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to copy</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">List My Presets</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Lists all of your saved presets by name.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">What's a Preset's Tempo?</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Tells you the tempo and time signature of a saved preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to query</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ SET LISTS ═══════════════════════════ -->
+<h2>Set Lists</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Add Preset to Set List</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Adds or moves a preset into a named set list. Creates the set list if it doesn't exist yet.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to add</div>
+      <div class="param">Set List Name — existing or new set list name</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Remove Preset from Set List</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Removes a preset from its current set list without deleting the preset.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Preset — the preset to remove</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">List Presets in Set List</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Lists all the presets in a set list.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Set List — the set list to query</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ PRACTICE ═══════════════════════════ -->
+<h2>Practice</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Start Practice Session</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Starts a new practice session in ClickTrack.</div>
+    <div class="phrases">
+      <span class="phrase">"Start practice in ClickTrack"</span>
+      <span class="phrase">"Begin practice in ClickTrack"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Stop Practice Session</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Stops the current practice session and saves it.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">What Are My Practice Stats?</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Reports the current practice session's elapsed time, plays, and tempo range.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Set Practice Goal</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Sets a target BPM goal for your next practice session.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Goal BPM — target tempo</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Add Practice Note</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Appends a note to the currently active practice session.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Note — text to append to the session</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">How Much Have I Practiced?</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Reports today's practice time and your current consecutive-day streak.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ TUNER ═══════════════════════════ -->
+<h2>Tuner</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Look Up Tuning</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Tells you the string notes for any guitar or bass tuning.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Tuning — e.g. Standard, Drop D, Open G, DADGAD…</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">What Frequency Is a Note?</div>
+      <div class="badges"><span class="badge badge-pro">Pro</span></div>
+    </div>
+    <div class="card-desc">Tells you the standard concert pitch frequency of a musical note.</div>
+    <div class="params"><div class="params-label">Parameters</div>
+      <div class="param">Note — e.g. A, C♯, E♭</div>
+      <div class="param">Octave — e.g. 4 for middle A (default: 4)</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ BAND SYNC ═══════════════════════════ -->
+<h2>Band Sync</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Start Band Sync Session</div>
+      <div class="badges"><span class="badge badge-free">Free</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Starts hosting a band sync session. Other devices can join and follow your tempo.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Join a Band Sync Session</div>
+      <div class="badges"><span class="badge badge-free">Free</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Starts searching for nearby band sync sessions. Open Band Sync in ClickTrack to pick one and join.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Leave Band Sync Session</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Leaves or ends the current band sync session.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">What's My Band Sync Status?</div>
+      <div class="badges"><span class="badge badge-free">Free</span></div>
+    </div>
+    <div class="card-desc">Reports whether band sync is active and how many devices are connected.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ SPECIAL ═══════════════════════════ -->
+<h2>Special</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Stayin' Alive</div>
+      <div class="badges"><span class="badge badge-free">Free</span><span class="badge badge-opens">Opens App</span></div>
+    </div>
+    <div class="card-desc">Sets the tempo to 103 BPM for CPR chest compressions and starts the metronome.</div>
+    <div class="phrases">
+      <span class="phrase">"Stayin' Alive in ClickTrack"</span>
+      <span class="phrase">"CPR tempo in ClickTrack"</span>
+    </div>
+  </div>
+
+</div>
+
+<footer style="margin-top:48px; color:var(--secondary); font-size:12px; text-align:center;">
+  35 commands total · 14 free · 21 require ClickTrack Pro
+</footer>
+
+</body>
+</html>
