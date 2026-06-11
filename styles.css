@@ -451,6 +451,10 @@ footer a:hover { text-decoration: underline; }
   padding: 0 24px 96px;
 }
 
+.card-wide {
+  grid-column: 1 / -1;
+}
+
 .card {
   display: block;
   text-decoration: none;
@@ -493,6 +497,8 @@ footer a:hover { text-decoration: underline; }
 .card-privacy .card-icon   { background: rgba(187,62,216,0.15); }
 .card-presskit .card-icon  { background: rgba(0,122,255,0.15); }
 .card-presskit::before     { background: radial-gradient(ellipse at top left, rgba(0,122,255,0.12) 0%, transparent 70%); }
+.card-howto .card-icon     { background: rgba(0,122,255,0.15); }
+.card-howto::before        { background: radial-gradient(ellipse at top left, rgba(0,122,255,0.12) 0%, transparent 70%); }
 
 .card h2 {
   font-size: 20px;
@@ -831,6 +837,9 @@ footer a:hover { text-decoration: underline; }
 .check-no  { color: rgba(142,142,147,0.3); font-size: 16px; line-height: 1; }
 .check-pro { color: var(--orange); font-size: 11px; font-weight: 700; }
 
+.feature-list a { color: var(--blue); text-decoration: none; }
+.feature-list a:hover { text-decoration: underline; }
+
 /* ════════════════════════════════════════
    SUPPORT PAGE
    ════════════════════════════════════════ */
@@ -966,3 +975,108 @@ details.faq-item[open] summary::after {
 }
 
 .contact-card a:hover { text-decoration: underline; }
+
+/* ════════════════════════════════════════
+   HOW-TO PAGE
+   ════════════════════════════════════════ */
+
+.page-howto .divider { max-width: 720px; margin-bottom: 40px; }
+.page-howto .header,
+.page-howto .content { max-width: 720px; }
+
+.page-howto .content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.howto-desc {
+  font-size: 14px;
+  color: var(--secondary);
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.howto-video-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.howto-video-item {
+  flex: 0 0 220px;
+  width: 220px;
+}
+
+.howto-video-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.howto-video {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 9 / 19.5;
+  margin-top: 16px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+
+.howto-video-item .howto-video {
+  margin-top: 0;
+}
+
+.howto-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
+.howto-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 24px;
+}
+
+.howto-placeholder-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,122,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.howto-placeholder p {
+  font-size: 12px;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+.howto-placeholder code {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 11px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 7px;
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
