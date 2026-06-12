@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClickTrack Pro</title>
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="css/styles.css?v=8">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script>try{if(localStorage.getItem('clicktrack-platform')==='android'){document.documentElement.setAttribute('data-platform','android');}}catch(e){}</script>
 </head>
 <body class="page-home">
 
@@ -38,48 +39,59 @@
     <span class="badge badge-opens">Coming Soon</span> Android version in development
   </p>
 
+  <div class="platform-toggle" data-page-platform="both" style="margin-bottom:28px;">
+    <button type="button" class="platform-btn" data-platform="ios">
+      <img src="images/apple-logo.svg" alt="" width="12" height="15"> iOS
+    </button>
+    <button type="button" class="platform-btn platform-btn-android" data-platform="android">
+      <img src="images/android-logo.svg" alt="" width="16" height="16"> Android <span class="platform-soon">Soon</span>
+    </button>
+  </div>
+
   <div class="stat-strip">
-    <span class="stat-chip"><span class="stat-dot"></span>40–300 BPM</span>
+    <span class="stat-chip"><span class="stat-dot"></span>40–240 BPM</span>
     <span class="stat-chip"><span class="stat-dot"></span>13+ time signatures</span>
-    <span class="stat-chip"><span class="stat-dot"></span>Apple Watch</span>
-    <span class="stat-chip"><span class="stat-dot"></span>35 Siri commands</span>
+    <span class="stat-chip" data-platform-section="ios"><span class="stat-dot"></span>Apple Watch</span>
+    <span class="stat-chip" data-platform-section="ios"><span class="stat-dot"></span>35 Siri commands</span>
+    <span class="stat-chip" data-platform-section="android"><span class="stat-dot"></span>Wear OS (planned)</span>
+    <span class="stat-chip" data-platform-section="android"><span class="stat-dot"></span>Assistant commands (planned)</span>
     <span class="stat-chip"><span class="stat-dot"></span>9 languages</span>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<div class="cards">
+<div class="cards" data-platform-section="ios">
 
-  <a class="card card-howto card-wide" href="how-to.html">
+  <a class="card card-howto card-wide" href="ios/how-to.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/play-icon.svg" alt="" width="28" height="28"></div>
     <h2>How-To</h2>
     <p>Short screen recordings showing how to use presets, Band Sync, the tuner, and more.</p>
   </a>
 
-  <a class="card card-features" href="features.html">
+  <a class="card card-features" href="ios/features.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/grid-icon.svg" alt="" width="28" height="28"></div>
     <h2>Features</h2>
     <p>Tuner, practice tracking, subdivisions, Band Sync, Apple Watch, and widgets. See what's free and what's Pro.</p>
   </a>
 
-  <a class="card card-siri" href="siri-commands.html">
+  <a class="card card-siri" href="ios/siri-commands.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/siri-icon-purple.svg" alt="" width="28" height="28"></div>
     <h2>Siri Commands</h2>
     <p>35 voice commands for hands-free control of tempo, presets, practice sessions, tunings, and more.</p>
   </a>
 
-  <a class="card card-support" href="support.html">
+  <a class="card card-support" href="ios/support.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/mail-icon.svg" alt="" width="28" height="28"></div>
     <h2>Support</h2>
     <p>Answers to common questions about setup, widgets, Band Sync, the Apple Watch app, and purchases.</p>
   </a>
 
-  <a class="card card-privacy" href="privacy-policy.html">
+  <a class="card card-privacy" href="ios/privacy-policy.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/lock-icon.svg" alt="" width="28" height="28"></div>
     <h2>Privacy Policy</h2>
@@ -88,8 +100,8 @@
 
 </div>
 
-<div class="cards" style="padding-top:0;padding-bottom:96px;max-width:720px;">
-  <a class="card card-presskit" href="press-kit.html">
+<div class="cards" data-platform-section="ios" style="padding-top:0;padding-bottom:96px;max-width:720px;">
+  <a class="card card-presskit" href="ios/press-kit.html">
     <span class="card-arrow">↗</span>
     <div class="card-icon"><img src="images/file-icon.svg" alt="" width="28" height="28"></div>
     <h2>Press Kit</h2>
@@ -97,9 +109,58 @@
   </a>
 </div>
 
+<div class="cards" data-platform-section="android">
+
+  <a class="card card-howto card-android card-wide" href="android/android-how-to.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/play-icon.svg" alt="" width="28" height="28"></div>
+    <h2>How-To</h2>
+    <p>Short screen recordings showing how to use presets, Band Sync, the tuner, and more — coming with the Android launch.</p>
+  </a>
+
+  <a class="card card-features card-android" href="android/android-features.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/grid-icon.svg" alt="" width="28" height="28"></div>
+    <h2>Features</h2>
+    <p>Tuner, practice tracking, subdivisions, Band Sync, and widgets. See what's planned for Free and Pro.</p>
+  </a>
+
+  <a class="card card-siri card-android" href="android/android-assistant-commands.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/siri-icon-purple.svg" alt="" width="28" height="28"></div>
+    <h2>Assistant Commands</h2>
+    <p>Planned Google Assistant voice commands for hands-free control of tempo, presets, and practice sessions.</p>
+  </a>
+
+  <a class="card card-support card-android" href="android/android-support.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/mail-icon.svg" alt="" width="28" height="28"></div>
+    <h2>Support</h2>
+    <p>Questions about the upcoming Android app? Here's what we can answer so far.</p>
+  </a>
+
+  <a class="card card-privacy card-android" href="android/android-privacy-policy.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/lock-icon.svg" alt="" width="28" height="28"></div>
+    <h2>Privacy Policy</h2>
+    <p>ClickTrack Pro for Android will collect no personal data. Everything stays on your device.</p>
+  </a>
+
+</div>
+
+<div class="cards" data-platform-section="android" style="padding-top:0;padding-bottom:96px;max-width:720px;">
+  <a class="card card-presskit card-android" href="android/android-press-kit.html">
+    <span class="card-arrow">↗</span>
+    <div class="card-icon"><img src="images/file-icon.svg" alt="" width="28" height="28"></div>
+    <h2>Press Kit</h2>
+    <p>App descriptions, key facts, and contact info for journalists covering the Android launch.</p>
+  </a>
+</div>
+
 <footer>
-  <p>© 2026 SGT5C · ClickTrack Pro · <a href="features.html">Features</a> · <a href="siri-commands.html">Siri Commands</a> · <a href="how-to.html">How-To</a> · <a href="support.html">Support</a> · <a href="privacy-policy.html">Privacy</a> · <a href="press-kit.html">Press Kit</a> · <a href="mailto:sgt5c@icloud.com">sgt5c@icloud.com</a></p>
+  <p>© 2026 SGT5C · ClickTrack Pro · <a href="ios/features.html">Features</a> · <a href="ios/siri-commands.html">Siri Commands</a> · <a href="ios/how-to.html">How-To</a> · <a href="ios/support.html">Support</a> · <a href="ios/privacy-policy.html">Privacy</a> · <a href="ios/press-kit.html">Press Kit</a> · <a href="mailto:sgt5c@icloud.com">sgt5c@icloud.com</a></p>
 </footer>
 
+<script src="js/platform-toggle.js"></script>
 </body>
 </html>
